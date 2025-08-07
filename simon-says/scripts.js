@@ -2,6 +2,7 @@ const topLeft = document.querySelector('.top-left-panel');
 const topRight = document.querySelector('.top-right-panel');
 const bottomLeft = document.querySelector('.bottom-left-panel');
 const bottomRight = document.querySelector('.bottom-right-panel');
+const startBtn = document.getElementById('start-btn');
 
 const getRandomPanel = () => {
 const panels = [
@@ -47,6 +48,13 @@ const panelClicked = panelClicked => {
         alert('game over');
     }
 };
+
+startBtn.addEventListener('click', () => {
+  sequence.length = 0; // clear the sequence
+  sequence.push(getRandomPanel()); // start with one panel
+  sequenceToGuess = [...sequence]; // reset the guess sequence
+  startFlashing(); // begin the flashing sequence
+});
 
 const startFlashing = async () => {
     for (const panel of sequence){
