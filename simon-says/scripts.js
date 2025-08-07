@@ -3,11 +3,18 @@ const topRight = document.querySelector('.top-right-panel');
 const bottomLeft = document.querySelector('.bottom-left-panel');
 const bottomRight = document.querySelector('.bottom-right-panel');
 
-const panel = {
-    topLeft
-}
+const getRandomPanel = () => {
+const panels = [
+    topLeft,
+    topRight,
+    bottomLeft,
+    bottomRight
+    ];
+    return panels[parseInt(Math.random() * panels.length)]
+};
 
-const sequence = [topLeft,bottomLeft,topRight,bottomRight];
+const sequence = [getRandomPanel()];
+let sequenceToGuess = [...sequence];
 
 const flash = (panel) => {
     return new Promise((resolve,reject) => {
@@ -16,16 +23,36 @@ const flash = (panel) => {
             panel.className = panel.className.replace(
                 'active',
                 ''
-            )
-            resolve();
+            );
+            setTimeout(() => {
+                resolve();
+            }, 250);
         },1000);
     });
 };
 
-const main = async () => {
-    for (const panel of sequence){
-        await flash(panel);
+let canClick = false;
+
+const panelClicked = panelClicked => {
+    if (!canClick) return;
+    const expectedPanel = sequenceToGuess.shift();
+    if (expectedPanel === panelClicked) {
+        if (sequenceToGuess.length === 0) {
+            sequence.push(getRandomPanel());
+            sequenceToGuess = [...sequence];
+            startFlashing();
+        }
+    }
+    else{
+        alert('game over');
     }
 };
 
-main();
+const startFlashing = async () => {
+    for (const panel of sequence){
+        await flash(panel);
+    }
+    canClick = true;
+};
+
+startFlashing();
