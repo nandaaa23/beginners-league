@@ -5,3 +5,5 @@
 ---
 
 ## Screenshots
+
+<img width="1351" height="883" alt="Screenshot 2025-08-09 004703" src="https://github.com/user-attachments/assets/cc536690-856d-477a-972b-4f79eb03d59d" />
